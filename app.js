@@ -5,9 +5,9 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 //
+const config = require("./js/config.js");
 const bufferQueue = require("./js/buffer-queue.js");
 const rabbitmqClient = require("./js/rabbitmq-client.js");
-
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
@@ -43,7 +43,7 @@ serverStarted = () => {
 
 }
 
-server.listen(3000, () => {
-  console.log("listening on *:3000");
+server.listen(config.serverPort, () => {
+  console.log(`listening on *:${config.serverPort}`);
   serverStarted();
 });

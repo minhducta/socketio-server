@@ -1,12 +1,13 @@
 const outputExchange = "exchange.output";
+const config = require("./config.js");
 const bufferQueue = require('./buffer-queue.js');
 const ulti = require('./ulti.js');
 
-var open = require('amqplib').connect('amqp://socketio:socketio0945080066d@14.225.254.235:5672/socketio');
+var url = `amqp://${config.rabbit.user}:${config.rabbit.pwd}@${config.rabbit.host}:${config.rabbit.port}/${config.rabbit.vhost}`;
+var open = require('amqplib').connect(url);
+var q = ulti.randomString(16);
 
 exports.start = () => {
-  var q = ulti.randomString(16);
-
   // Publisher
   open.then(function (conn) {
     return conn.createChannel();

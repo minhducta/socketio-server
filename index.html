@@ -62,7 +62,8 @@
 
     <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"
         integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous">
+    </script>
     
 </head>
 
@@ -74,13 +75,15 @@
 </body>
 
 <script>
-    var socket = io();
+    var socketUrl = "ws://localhost:3000";
+    var socket = io(socketUrl);
     var form = document.getElementById('form');
     var input = document.getElementById('input');
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
         if (input.value) {
+            console.log("dhs");
             socket.emit('test-message', input.value);
             input.value = '';
         }
