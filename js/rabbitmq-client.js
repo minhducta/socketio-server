@@ -12,7 +12,10 @@ var qq = "socketio.queue." + ulti.randomString(16);
 
 procInMsg = txtMsg => {
   var json = JSON.parse(txtMsg);
-  socketManager.emit(json.id, json.event, json.message);
+  if (json.isBroadcasting)
+    socketManager.emit(json.id, json.event, json.message);
+  else
+    socketManager.broadcast(json.id, json.event, json.message);
 }
 
 exports.start = () => {
@@ -44,6 +47,7 @@ exports.start = () => {
           id,
           dest,
           payload: {
+            type: "connection-status",
             isConnected: false
           }
         })));

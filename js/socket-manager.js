@@ -44,8 +44,8 @@ module.exports = {
             holder.socket.emit(event, message);
         }
     },
-    broadcast: (room, message) => {
-        obj.nsp.to(room, message);
+    broadcast: (room, event, message) => {
+        obj.nsp.to(room).emit(event, message);
     },
 
     onConnection: (task) => {
