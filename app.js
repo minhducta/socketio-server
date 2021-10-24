@@ -10,6 +10,10 @@ const bufferQueue = require("./js/buffer-queue.js");
 const rabbitmqClient = require("./js/rabbitmq-client.js");
 const socketManager = require("./js/socket-manager.js");
 //
+app.use(cors({
+  origin: '*'
+}));
+
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });

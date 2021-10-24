@@ -33,6 +33,7 @@ exports.start = () => {
           id,
           dest,
           payload: {
+            type: "connection-status",
             isConnected: true
           }
         })));
