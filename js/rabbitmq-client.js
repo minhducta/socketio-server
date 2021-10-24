@@ -1,5 +1,5 @@
-const outputExchange = "exchange.output";
-const inputExchange = "exchange.input";
+const outputExchange = "socketio.exchange.output";
+const inputExchange = "socketio.exchange.input";
 const config = require("./config.js");
 const bufferQueue = require('./buffer-queue.js');
 const socketManager = require("./socket-manager.js");
@@ -7,8 +7,8 @@ const ulti = require('./ulti.js');
 
 var url = `amqp://${config.rabbit.user}:${config.rabbit.pwd}@${config.rabbit.host}:${config.rabbit.port}/${config.rabbit.vhost}`;
 var open = require('amqplib').connect(url);
-var q = ulti.randomString(16);
-var qq = ulti.randomString(16);
+var q = "socketio.queue.test-message." + ulti.randomString(16);
+var qq = "socketio.queue." + ulti.randomString(16);
 
 procInMsg = txtMsg => {
   var json = JSON.parse(txtMsg);
@@ -83,7 +83,7 @@ exports.start = () => {
               procInMsg(JSON.stringify({
                 id: json.id,
                 event: "test-message-response",
-                message: "Response " + json.payload.message
+                message: "Response " + JSON.stringify(json.payload)
               }));
 
               ch.ack(msg);
